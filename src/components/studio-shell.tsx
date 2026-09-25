@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 
 const items = [
   { to: "/studio", label: "Visão geral", end: true },
+  { to: "/studio/agente", label: "Agente" },
   { to: "/studio/image", label: "Imagem" },
   { to: "/studio/video", label: "Vídeo" },
   { to: "/studio/docs", label: "Documentos" },
