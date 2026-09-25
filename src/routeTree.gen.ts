@@ -15,6 +15,7 @@ import { Route as ApiGenerateVideoRouteImport } from './routes/api/generate-vide
 import { Route as ApiVideoContentRouteImport } from './routes/api/video-content'
 import { Route as ApiVideoStatusRouteImport } from './routes/api/video-status'
 import { Route as StudioIndexRouteImport } from './routes/studio/index'
+import { Route as StudioAgenteRouteImport } from './routes/studio/agente'
 import { Route as StudioBrandRouteImport } from './routes/studio/brand'
 import { Route as StudioDocsRouteImport } from './routes/studio/docs'
 import { Route as StudioImageRouteImport } from './routes/studio/image'
@@ -51,6 +52,11 @@ const StudioIndexRoute = StudioIndexRouteImport.update({
   path: '/studio/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StudioAgenteRoute = StudioAgenteRouteImport.update({
+  id: '/studio/agente',
+  path: '/studio/agente',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StudioBrandRoute = StudioBrandRouteImport.update({
   id: '/studio/brand',
   path: '/studio/brand',
@@ -83,6 +89,7 @@ export interface FileRoutesByFullPath {
   '/api/generate-video': typeof ApiGenerateVideoRoute
   '/api/video-content': typeof ApiVideoContentRoute
   '/api/video-status': typeof ApiVideoStatusRoute
+  '/studio/agente': typeof StudioAgenteRoute
   '/studio/brand': typeof StudioBrandRoute
   '/studio/docs': typeof StudioDocsRoute
   '/studio/image': typeof StudioImageRoute
@@ -96,6 +103,7 @@ export interface FileRoutesByTo {
   '/api/generate-video': typeof ApiGenerateVideoRoute
   '/api/video-content': typeof ApiVideoContentRoute
   '/api/video-status': typeof ApiVideoStatusRoute
+  '/studio/agente': typeof StudioAgenteRoute
   '/studio/brand': typeof StudioBrandRoute
   '/studio/docs': typeof StudioDocsRoute
   '/studio/image': typeof StudioImageRoute
@@ -110,6 +118,7 @@ export interface FileRoutesById {
   '/api/generate-video': typeof ApiGenerateVideoRoute
   '/api/video-content': typeof ApiVideoContentRoute
   '/api/video-status': typeof ApiVideoStatusRoute
+  '/studio/agente': typeof StudioAgenteRoute
   '/studio/brand': typeof StudioBrandRoute
   '/studio/docs': typeof StudioDocsRoute
   '/studio/image': typeof StudioImageRoute
@@ -125,6 +134,7 @@ export interface FileRouteTypes {
     | '/api/generate-video'
     | '/api/video-content'
     | '/api/video-status'
+    | '/studio/agente'
     | '/studio/brand'
     | '/studio/docs'
     | '/studio/image'
@@ -138,6 +148,7 @@ export interface FileRouteTypes {
     | '/api/generate-video'
     | '/api/video-content'
     | '/api/video-status'
+    | '/studio/agente'
     | '/studio/brand'
     | '/studio/docs'
     | '/studio/image'
@@ -151,6 +162,7 @@ export interface FileRouteTypes {
     | '/api/generate-video'
     | '/api/video-content'
     | '/api/video-status'
+    | '/studio/agente'
     | '/studio/brand'
     | '/studio/docs'
     | '/studio/image'
@@ -165,6 +177,7 @@ export interface RootRouteChildren {
   ApiGenerateVideoRoute: typeof ApiGenerateVideoRoute
   ApiVideoContentRoute: typeof ApiVideoContentRoute
   ApiVideoStatusRoute: typeof ApiVideoStatusRoute
+  StudioAgenteRoute: typeof StudioAgenteRoute
   StudioBrandRoute: typeof StudioBrandRoute
   StudioDocsRoute: typeof StudioDocsRoute
   StudioImageRoute: typeof StudioImageRoute
@@ -217,6 +230,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StudioIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/studio/agente': {
+      id: '/studio/agente'
+      path: '/studio/agente'
+      fullPath: '/studio/agente'
+      preLoaderRoute: typeof StudioAgenteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/studio/brand': {
       id: '/studio/brand'
       path: '/studio/brand'
@@ -261,6 +281,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiGenerateVideoRoute: ApiGenerateVideoRoute,
   ApiVideoContentRoute: ApiVideoContentRoute,
   ApiVideoStatusRoute: ApiVideoStatusRoute,
+  StudioAgenteRoute: StudioAgenteRoute,
   StudioBrandRoute: StudioBrandRoute,
   StudioDocsRoute: StudioDocsRoute,
   StudioImageRoute: StudioImageRoute,
