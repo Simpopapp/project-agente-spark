@@ -11,6 +11,8 @@ const { hostname, port } = new URL(TARGET);
 // /api/* entries are listed one by one so the app's own /api routes keep working.
 const PREFIXES = [
   "/oc",
+  "/new-session",
+  "/new-project",
   "/assets/",
   "/doc",
   "/event",
