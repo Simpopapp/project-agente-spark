@@ -1,0 +1,61 @@
+STUDIO-OS V6 — BACKUP COMPACTO
+==============================
+
+O conteúdo deste ZIP está na raiz do arquivo, sem pastas-envelope internas.
+Se o extrator criar uma pasta com o nome do ZIP, ela será studio-os-v3 e
+conterá diretamente os arquivos do projeto (não haverá v6/v3).
+
+Para ficar abaixo de 20 MB, foram excluídos somente itens reinstaláveis:
+- diretórios node_modules em root/.opencode e root/.config/opencode;
+- executável root/.opencode/bin/opencode (versão original: 1.18.32);
+- cache root/.cache/opencode/models.json.
+
+O código, bun.lock, package-lock.json, banco opencode.db, WAL, snapshots e
+outros dados do projeto foram mantidos.
+
+RESTAURAR DADOS DO OPENCODE (Linux/macOS)
+-----------------------------------------
+Execute estes comandos a partir da pasta extraída. Faça backup do destino se
+já houver dados; pare o OpenCode antes de copiar o banco:
+
+   cp -a root/.opencode "$HOME/"
+   mkdir -p "$HOME/.config" "$HOME/.local/share" "$HOME/.cache"
+   cp -a root/.config/opencode "$HOME/.config/"
+   cp -a root/.local/share/opencode "$HOME/.local/share/"
+   cp -a root/.cache/opencode "$HOME/.cache/"
+
+REINSTALAR DEPENDÊNCIAS DO PROJETO
+----------------------------------
+Instale Bun se necessário (Linux/macOS):
+
+   curl -fsSL https://bun.sh/install | bash
+   source "$HOME/.bashrc"  # ou abra um terminal novo; ajuste conforme o shell
+
+Na pasta extraída do projeto:
+
+   bun install --frozen-lockfile
+   bun run dev
+
+Para gerar a versão de produção: `bun run build`.
+
+REINSTALAR O EXECUTÁVEL OPENCODE
+--------------------------------
+O instalador oficial instala a versão corrente (pode ser mais nova que a 1.18.32
+usada na origem):
+
+   curl -fsSL https://opencode.ai/install | bash
+   export PATH="$HOME/.opencode/bin:$PATH"
+   opencode --version
+
+DEPENDÊNCIAS NPM AUXILIARES (OPCIONAL)
+--------------------------------------
+Se precisar dos plugins auxiliares do OpenCode, após restaurar os arquivos:
+
+   (cd "$HOME/.opencode" && npm ci)
+   (cd "$HOME/.config/opencode" && npm ci)
+
+Requer Node.js/npm e acesso aos registries registrados nos package-lock.json.
+(obs: O que você precisa saber
+
+Esse chat só funciona aqui na pré-visualização do projeto. Não vai funcionar na versão publicada, porque o OpenCode roda dentro deste ambiente de trabalho.
+Se o ambiente for reiniciado, o OpenCode para e vai precisar ser ligado de novo. Essa página só volta a funcionar depois disso.)
