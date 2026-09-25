@@ -10,33 +10,167 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiGenerateImageRouteImport } from './routes/api/generate-image'
+import { Route as ApiGenerateVideoRouteImport } from './routes/api/generate-video'
+import { Route as ApiVideoContentRouteImport } from './routes/api/video-content'
+import { Route as ApiVideoStatusRouteImport } from './routes/api/video-status'
+import { Route as StudioIndexRouteImport } from './routes/studio/index'
+import { Route as StudioBrandRouteImport } from './routes/studio/brand'
+import { Route as StudioDocsRouteImport } from './routes/studio/docs'
+import { Route as StudioImageRouteImport } from './routes/studio/image'
+import { Route as StudioPublishRouteImport } from './routes/studio/publish'
+import { Route as StudioVideoRouteImport } from './routes/studio/video'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiGenerateImageRoute = ApiGenerateImageRouteImport.update({
+  id: '/api/generate-image',
+  path: '/api/generate-image',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiGenerateVideoRoute = ApiGenerateVideoRouteImport.update({
+  id: '/api/generate-video',
+  path: '/api/generate-video',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiVideoContentRoute = ApiVideoContentRouteImport.update({
+  id: '/api/video-content',
+  path: '/api/video-content',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiVideoStatusRoute = ApiVideoStatusRouteImport.update({
+  id: '/api/video-status',
+  path: '/api/video-status',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudioIndexRoute = StudioIndexRouteImport.update({
+  id: '/studio/',
+  path: '/studio/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudioBrandRoute = StudioBrandRouteImport.update({
+  id: '/studio/brand',
+  path: '/studio/brand',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudioDocsRoute = StudioDocsRouteImport.update({
+  id: '/studio/docs',
+  path: '/studio/docs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudioImageRoute = StudioImageRouteImport.update({
+  id: '/studio/image',
+  path: '/studio/image',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudioPublishRoute = StudioPublishRouteImport.update({
+  id: '/studio/publish',
+  path: '/studio/publish',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudioVideoRoute = StudioVideoRouteImport.update({
+  id: '/studio/video',
+  path: '/studio/video',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/api/generate-image': typeof ApiGenerateImageRoute
+  '/api/generate-video': typeof ApiGenerateVideoRoute
+  '/api/video-content': typeof ApiVideoContentRoute
+  '/api/video-status': typeof ApiVideoStatusRoute
+  '/studio/brand': typeof StudioBrandRoute
+  '/studio/docs': typeof StudioDocsRoute
+  '/studio/image': typeof StudioImageRoute
+  '/studio/publish': typeof StudioPublishRoute
+  '/studio/video': typeof StudioVideoRoute
+  '/studio/': typeof StudioIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/api/generate-image': typeof ApiGenerateImageRoute
+  '/api/generate-video': typeof ApiGenerateVideoRoute
+  '/api/video-content': typeof ApiVideoContentRoute
+  '/api/video-status': typeof ApiVideoStatusRoute
+  '/studio/brand': typeof StudioBrandRoute
+  '/studio/docs': typeof StudioDocsRoute
+  '/studio/image': typeof StudioImageRoute
+  '/studio/publish': typeof StudioPublishRoute
+  '/studio/video': typeof StudioVideoRoute
+  '/studio': typeof StudioIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/api/generate-image': typeof ApiGenerateImageRoute
+  '/api/generate-video': typeof ApiGenerateVideoRoute
+  '/api/video-content': typeof ApiVideoContentRoute
+  '/api/video-status': typeof ApiVideoStatusRoute
+  '/studio/brand': typeof StudioBrandRoute
+  '/studio/docs': typeof StudioDocsRoute
+  '/studio/image': typeof StudioImageRoute
+  '/studio/publish': typeof StudioPublishRoute
+  '/studio/video': typeof StudioVideoRoute
+  '/studio/': typeof StudioIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/api/generate-image'
+    | '/api/generate-video'
+    | '/api/video-content'
+    | '/api/video-status'
+    | '/studio/brand'
+    | '/studio/docs'
+    | '/studio/image'
+    | '/studio/publish'
+    | '/studio/video'
+    | '/studio/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/api/generate-image'
+    | '/api/generate-video'
+    | '/api/video-content'
+    | '/api/video-status'
+    | '/studio/brand'
+    | '/studio/docs'
+    | '/studio/image'
+    | '/studio/publish'
+    | '/studio/video'
+    | '/studio'
+  id:
+    | '__root__'
+    | '/'
+    | '/api/generate-image'
+    | '/api/generate-video'
+    | '/api/video-content'
+    | '/api/video-status'
+    | '/studio/brand'
+    | '/studio/docs'
+    | '/studio/image'
+    | '/studio/publish'
+    | '/studio/video'
+    | '/studio/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ApiGenerateImageRoute: typeof ApiGenerateImageRoute
+  ApiGenerateVideoRoute: typeof ApiGenerateVideoRoute
+  ApiVideoContentRoute: typeof ApiVideoContentRoute
+  ApiVideoStatusRoute: typeof ApiVideoStatusRoute
+  StudioBrandRoute: typeof StudioBrandRoute
+  StudioDocsRoute: typeof StudioDocsRoute
+  StudioImageRoute: typeof StudioImageRoute
+  StudioPublishRoute: typeof StudioPublishRoute
+  StudioVideoRoute: typeof StudioVideoRoute
+  StudioIndexRoute: typeof StudioIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +182,91 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/generate-image': {
+      id: '/api/generate-image'
+      path: '/api/generate-image'
+      fullPath: '/api/generate-image'
+      preLoaderRoute: typeof ApiGenerateImageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/generate-video': {
+      id: '/api/generate-video'
+      path: '/api/generate-video'
+      fullPath: '/api/generate-video'
+      preLoaderRoute: typeof ApiGenerateVideoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/video-content': {
+      id: '/api/video-content'
+      path: '/api/video-content'
+      fullPath: '/api/video-content'
+      preLoaderRoute: typeof ApiVideoContentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/video-status': {
+      id: '/api/video-status'
+      path: '/api/video-status'
+      fullPath: '/api/video-status'
+      preLoaderRoute: typeof ApiVideoStatusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/studio/': {
+      id: '/studio/'
+      path: '/studio'
+      fullPath: '/studio/'
+      preLoaderRoute: typeof StudioIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/studio/brand': {
+      id: '/studio/brand'
+      path: '/studio/brand'
+      fullPath: '/studio/brand'
+      preLoaderRoute: typeof StudioBrandRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/studio/docs': {
+      id: '/studio/docs'
+      path: '/studio/docs'
+      fullPath: '/studio/docs'
+      preLoaderRoute: typeof StudioDocsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/studio/image': {
+      id: '/studio/image'
+      path: '/studio/image'
+      fullPath: '/studio/image'
+      preLoaderRoute: typeof StudioImageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/studio/publish': {
+      id: '/studio/publish'
+      path: '/studio/publish'
+      fullPath: '/studio/publish'
+      preLoaderRoute: typeof StudioPublishRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/studio/video': {
+      id: '/studio/video'
+      path: '/studio/video'
+      fullPath: '/studio/video'
+      preLoaderRoute: typeof StudioVideoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ApiGenerateImageRoute: ApiGenerateImageRoute,
+  ApiGenerateVideoRoute: ApiGenerateVideoRoute,
+  ApiVideoContentRoute: ApiVideoContentRoute,
+  ApiVideoStatusRoute: ApiVideoStatusRoute,
+  StudioBrandRoute: StudioBrandRoute,
+  StudioDocsRoute: StudioDocsRoute,
+  StudioImageRoute: StudioImageRoute,
+  StudioPublishRoute: StudioPublishRoute,
+  StudioVideoRoute: StudioVideoRoute,
+  StudioIndexRoute: StudioIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

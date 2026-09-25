@@ -1,0 +1,79 @@
+# yaml-language-server: $schema=../../../../../pkg/eval/core/eval-definition.schema.json
+# Co-injection regression for skill/redesign. On an existing-UI, design-open
+# redesign turn the skill installs a fixed ritual (capture preview → three
+# visual-preference questions → three rendered directions → user pick → build).
+# But design_prototype surfaces `design_direction_usage` (RAG, Supplementary)
+# on the very same asks, with a contradictory create_directions-first sequence
+# and an explicit "skip design directions and edit directly" escape;
+# questions/`questions_design_preferences` and agent-instructions add more skip
+# permissions. Across sampled prod turns the ritual ran cleanly in 0/10 — the
+# agent almost always edits directly because a sibling file authorizes it.
+#
+# The intended resolution is precedence: when skill/redesign governs a turn,
+# `design_direction_usage` must yield (not be co-surfaced with a contradictory
+# workflow). This eval asserts that end state — `design_direction_usage` is NOT
+# retrieved on a redesign turn — so it is RED today (the file IS co-injected)
+# and turns GREEN once the precedence fix lands. It scores retrieval selection
+# (captured at prompt-build), not the HITL/browser ritual, so it is headless-
+# safe: unlike a behavioral replay of the ritual, it neither needs the
+# prototype picker nor a live screenshot.
+#
+# Samples are real prod redesign turns snapshotted to dev:
+#   lov project prod-to-dev <prod-id> --prod --skip-integrations \
+#     --trajectory-event-id '<event immediately after the turn's don>'
+apiVersion: eval.lovable.dev/v1
+kind: MainAgent
+metadata:
+  name: redesign-conflict
+  annotations:
+    meta.lovable.dev/description: Regression for the skill/redesign vs design_direction_usage co-injection conflict.
+spec:
+  description: >-
+    Regression for the skill/redesign vs design_direction_usage co-injection
+    conflict. Replays real design-open redesign turns and asserts that when
+    skill/redesign governs the turn, the contradictory design_direction_usage
+    workflow is not also retrieved into the prompt. Red until the precedence
+    fix (redesign governs, design_direction_usage yields) lands.
+  ci:
+    runOnOwnerPackageChanges: false
+    runOnChangesTo:
+      - go/api/integrations/skills/builtin/redesign/SKILL.md
+      - go/api/integrations/design_prototype/integration.go
+      - go/api/integrations/questions/knowledge.go
+  # design_direction_usage is only surfaced when the questions integration is
+  # active (design_prototype gates its knowledge on HasIntegration("questions")).
+  # Headless eval disables questions' tools, so this extension re-activates it —
+  # otherwise the file is never a fresh RAG candidate and the conflict the eval
+  # asserts on cannot arise.
+  extensions:
+    - questions
+  evaluators:
+    - type: knowledge-rag
+      files:
+        # Precedence target: when redesign governs, this must NOT be co-surfaced.
+        - name: design_direction_usage
+          excluded: true
+  samples:
+    # /redesign "make it more posh, use colors, fonts" — design-open restyle of
+    # existing UI. Source ed63058e; agent edited directly, no ritual.
+    - id: redesign-conflict-posh-6d5883ca
+      tags: [redesign, co-injection, design-open]
+      input:
+        type: replay-user-message
+        source_project_id: 6d5883ca-6f37-455c-a86a-0d65d28b31f7
+        message_id: main:agent#00000000018241#don:AM5GYVRH
+        source_trajectory_env: dev
+      project:
+        snapshot_id: 6d5883ca-6f37-455c-a86a-0d65d28b31f7
+    # /redesign "can you make it professional" — design-open restyle, no
+    # specified direction. Source f89cc39c; agent asked one generic question then
+    # edited directly (not the three-visual-preference ritual).
+    - id: redesign-conflict-professional-ce9092fa
+      tags: [redesign, co-injection, design-open]
+      input:
+        type: replay-user-message
+        source_project_id: ce9092fa-f2b8-40e1-8666-ebb263f51a69
+        message_id: main:agent#00000000028575#don:ORJU27BG
+        source_trajectory_env: dev
+      project:
+        snapshot_id: ce9092fa-f2b8-40e1-8666-ebb263f51a69
