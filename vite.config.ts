@@ -64,7 +64,9 @@ const OPENCODE_PATHS = [
   "/api/skill",
 ];
 
-const opencodeProxy: Record<string, unknown> = {
+import type { ProxyOptions } from "vite";
+
+const opencodeProxy: Record<string, ProxyOptions> = {
   // iframe entry point for the embedded OpenCode web UI
   "/oc": {
     target: OPENCODE_TARGET,
